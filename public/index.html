@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lunify - Mining Pool</title>
+
+  <link href="/img/logo.png" rel="shortcut icon" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.3.0/apexcharts.min.css" integrity="sha512-P/8zp3yWsYKLYgykcnVdWono7iWa9VXcoNLFnUhC82oBjt/6z5BIHXTQsMKBgYJjp6K+JAkt4yrID1cxfoUq+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-4 pe-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo_with_text.svg">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="more">
+    <div class="container">
+      <div class="mt-80 buttonPoolHeader">
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/'"><i class="fas fa-home"></i> Home</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/start'"><i class="fas fa-rocket"></i> Start</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/blocks'"><i class="fas fa-cubes"></i> Blocks</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/payments'"><i class="fas fa-receipt"></i> Payments</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/miners'"><i class="fas fa-medal"></i> Top 25 Miners</button>
+          <button class="btn btn-theme" onclick="window.open(config.discord_url)"><i class="fab fa-discord"></i> Discord</button>
+        </div>
+      </div>
+
+      <div class="mt-50">
+        <h5 class="mb-4"><i class="far fa-chart-bar"></i> Statistics</h5>
+
+        <div class="row p-0 fs-13">
+          <div class="col-12 col-md-4">
+            <div class="transparantCard h-100">
+              <span class="fw-600">Network</span>
+              <hr class="margin-13-0">
+              <div class="lh-22">
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-tachometer-alt"></i></span>
+                      <span>Network Hashrate</span>
+                    </div>
+                  </span>
+                  <span id="statNetHashrate" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-clock"></i></span>
+                      <span>Block Found</span>
+                    </div>
+                  </span>
+                  <span id="statNetLastBlock" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-hourglass-half"></i></span>
+                      <span>Last Block Time</span>
+                    </div>
+                  </span>
+                  <span id="statNetLastBlockTime" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-medal"></i></span>
+                      <span>Last Reward</span>
+                    </div>
+                  </span>
+                  <span id="statNetLastReward" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-hashtag"></i></span>
+                      <span>Last Hash</span>
+                    </div>
+                  </span>
+                  <span id="statNetLastHash" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-square-root-alt"></i></span>
+                      <span>Difficulty</span>
+                    </div>
+                  </span>
+                  <span id="statNetDifficulty" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-cubes"></i></span>
+                      <span>Height</span>
+                    </div>
+                  </span>
+                  <span id="statNetHeight" class="fw-600">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mt-4 mt-md-0">
+            <div class="transparantCard h-100">
+              <span class="fw-600">Pool Mining</span>
+              <hr class="margin-13-0">
+              <div class="lh-22">
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-tachometer-alt"></i></span>
+                      <span>Pool Hashrate</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolHashrate" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-clock"></i></span>
+                      <span>Last Block Found</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolLastBlockFound" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-clock"></i></span>
+                      <span>Block Found Every</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolFoundEvery" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-cubes"></i></span>
+                      <span>Blocks Found</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolBlocksFound" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-users"></i></span>
+                      <span>Miners (Workers)</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolMiners" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-star-half-alt"></i></span>
+                      <span>Current Effort</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolEffort" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-money-bill-alt"></i></span>
+                      <span>Pool Fee</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolFee" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-dollar-sign"></i></span>
+                      <span>Minimum Payout</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolMinPayment" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-stopwatch"></i></span>
+                      <span>Payment Interval</span>
+                    </div>
+                  </span>
+                  <span id="statsPoolPaymentInterval" class="fw-600">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mt-4 mt-md-0">
+            <div class="transparantCard h-100">
+              <span class="fw-600">Solo Mining</span>
+              <hr class="margin-13-0">
+              <div class="lh-22">
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-tachometer-alt"></i></span>
+                      <span>Solo Hashrate</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloHashrate" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-clock"></i></span>
+                      <span>Last Block Found</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloLastBlockFound" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-clock"></i></span>
+                      <span>Block Found Every</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloFoundEvery" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-cubes"></i></span>
+                      <span>Blocks Found</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloBlocksFound" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-users"></i></span>
+                      <span>Miners (Workers)</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloMiners" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-money-bill-alt"></i></span>
+                      <span>Pool Fee</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloFee" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-dollar-sign"></i></span>
+                      <span>Minimum Payout</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloMinPayment" class="fw-600">-</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <div class="d-flex">
+                      <span class="spanIcon"><i class="fas fa-stopwatch"></i></span>
+                      <span>Payment Interval</span>
+                    </div>
+                  </span>
+                  <span id="statsSoloPaymentInterval" class="fw-600">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-50 transparantCard">
+        <h5 class="mb-4"><i class="fas fa-swimming-pool"></i> Charts</h5>
+
+        <div class="row">
+          <div class="col-12 col-md-4 mb-4">
+            <div style="background-color:#dd413bb0; padding-top: 6px; border-radius: 6px;">
+              <span style="color:#fff; display:block; margin-left: 10px; margin-bottom: 10px; font-size: 13px; margin-top: 4px;">
+                Hashrate
+              </span>
+              <div>
+                <canvas id="chart_hashrate"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4">
+            <div style="background-color:#cd8a36; padding-top: 6px; border-radius: 6px;">
+              <span style="color:#fff; display:block; margin-left: 10px; margin-bottom: 10px; font-size: 13px; margin-top: 4px;">
+                Miners
+              </span>
+              <div>
+                <canvas id="chart_miners"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4">
+            <div style="background-color:#2e6174; padding-top: 6px; border-radius: 6px;">
+              <span style="color:#fff; display:block; margin-left: 10px; margin-bottom: 10px; font-size: 13px; margin-top: 4px;">
+                Workers
+              </span>
+              <div>
+                <canvas id="chart_workers"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4">
+            <div style="background-color:#348b95; padding-top: 6px; border-radius: 6px;">
+              <span style="color:#fff; display:block; margin-left: 10px; margin-bottom: 10px; font-size: 13px; margin-top: 4px;">
+                Difficulty
+              </span>
+              <div>
+                <canvas id="chart_diff"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mb-4">
+            <div style="background-color:#345395; padding-top: 6px; border-radius: 6px;">
+              <span style="color:#fff; display:block; margin-left: 10px; margin-bottom: 10px; font-size: 13px; margin-top: 4px;">
+                Effort
+              </span>
+              <div>
+                <canvas id="chart_props_effort"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-50 transparantCard">
+        <div class="d-flex justify-content-between">
+          <h5 class="mb-4"><i class="fas fa-coins"></i> Mining Profits</h5>
+          <h5 style="display:flex;">
+            Already Mining
+            <div class="form-check form-switch" style="margin-left: 9px;">
+              <input style="position: relative; top: -2px; height: 19px; width: 42px;" onchange="calcProfits()" class="form-check-input" type="checkbox" role="switch" id="alreadyMining">
+            </div>
+          </h5>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter your Hashrate" id="hashrateInput" onkeyup="calcProfits()">
+          <button class="btn btn-outline-secondary dropdown-toggle fs-13" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="currentHashing">KH/s</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end fs-12">
+            <li><a class="dropdown-item" href="#!" onclick="switchHashingUnit('H')">H/s</a></li>
+            <li><a class="dropdown-item" href="#!" onclick="switchHashingUnit('KH')">KH/s</a></li>
+            <li><a class="dropdown-item" href="#!" onclick="switchHashingUnit('MH')">MH/s</a></li>
+          </ul>
+        </div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Daily</th>
+              <th class="text-center" id="dailyLFI">- LFI</th>
+              <th class="text-center" id="dailyUSD">- USD</th>
+              <th class="text-center" id="dailyBTC">- BTC</th>
+            </tr>
+            <tr>
+              <th>Weekly</th>
+              <th class="text-center" id="weeklyLFI">- LFI</th>
+              <th class="text-center" id="weeklyUSD">- USD</th>
+              <th class="text-center" id="weeklyBTC">- BTC</th>
+            </tr>
+            <tr>
+              <th>Monthly</th>
+              <th class="text-center" id="monthlyLFI">- LFI</th>
+              <th class="text-center" id="monthlyUSD">- USD</th>
+              <th class="text-center" id="monthlyBTC">- BTC</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-50 transparantCard">
+        <h5 class="mb-4"><i class="fas fa-coins"></i> Your Statistics</h5>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter your Address" id="miningAddress">
+          <button class="btn btn-theme fs-13" onclick="checkAddress()" type="button">
+            Lookup
+          </button>
+        </div>
+        <span id="removeWallet"></span>
+
+        <div class="d-none" id="myStatsSection">
+          
+          <div class="row">
+            <div class="col-12 col-md-6">
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-tachometer-alt"></i></span>
+                    <span>
+                      Network Hashrate:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;" id="myHashrate">-</span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-cubes"></i></span>
+                    <span>
+                      Blocks Found:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;" id="myBlockFound">-</span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-cloud"></i></span>
+                    <span>
+                      Total Hashes:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;" id="myTotalHashes">-</span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-user-clock"></i></span>
+                    <span>
+                      Last Share Submitted:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;" id="myLastShare">-</span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-money-bill-alt"></i></span>
+                    <span>
+                      Pending Balance:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myPendingBalanceLFI">-</span> - 
+                  <i class="fas fa-dollar-sign cGreen"></i> <span id="myPendingBalanceUSD">-</span> - 
+                  <i class="fab fa-bitcoin cOrange"></i> <span id="myPendingBalanceBTC">-</span>
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-credit-card"></i></span>
+                    <span>
+                      Total Paid:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myPayoutBalanceLFI">-</span> - 
+                  <i class="fas fa-dollar-sign cGreen"></i> <span id="myPayoutBalanceUSD">-</span> - 
+                  <i class="fab fa-bitcoin cOrange"></i> <span id="myPayoutBalanceBTC">-</span>
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-coins"></i></span>
+                    <span>
+                      Minimum Payout:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myMinimumPayout">-</span>
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between mt-3">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-money-bill-alt"></i></span>
+                    <span>
+                      Daily Rewards:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myDailyRewardsLFI">-</span> - 
+                  <i class="fas fa-dollar-sign cGreen"></i> <span id="myDailyRewardsUSD">-</span> - 
+                  <i class="fab fa-bitcoin cOrange"></i> <span id="myDailyRewardsBTC">-</span>
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-money-bill-alt"></i></span>
+                    <span>
+                      Weekly Rewards:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myWeeklyRewardsLFI">-</span> - 
+                  <i class="fas fa-dollar-sign cGreen"></i> <span id="myWeeklyRewardsUSD">-</span> - 
+                  <i class="fab fa-bitcoin cOrange"></i> <span id="myWeeklyRewardsBTC">-</span>
+                </span>
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <span>
+                  <div class="d-flex" style="font-size: 13px;">
+                    <span class="spanIcon" style="top:3px;"><i class="fas fa-money-bill-alt"></i></span>
+                    <span>
+                      Monthly Rewards:
+                    </span>
+                  </div>
+                </span>
+                <span style="font-size: 13px;">
+                  <img src="/img/logo.png" style="height:17px;"> <span id="myMonthlyRewardsLFI">-</span> - 
+                  <i class="fas fa-dollar-sign cGreen"></i> <span id="myMonthlyRewardsUSD">-</span> - 
+                  <i class="fab fa-bitcoin cOrange"></i> <span id="myMonthlyRewardsBTC">-</span>
+                </span>
+              </div>
+              
+            </div>
+            <div class="col-12 col-md-6 mt-3 mt-md-0" style="display:flex;">
+              <div style="width:250px; width:50%;"><canvas id="chart_hashrate_user"></canvas></div>
+              <div style="width:250px; width:50%;"><canvas id="chart_payments_user"></canvas></div>
+            </div>
+          </div>
+
+          <div class="table-responsive mt-0 mt-md-3">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><span class="cGreen" id="myOnlineMiners">-</span> / <span class="cRed" id="myOfflineMiners">-</span></th>
+                  <th><i class="fas fa-signature"></i> Name</th>
+                  <th><i class="fas fa-times"></i> Errors</th>
+                  <th><i class="fas fa-tachometer-alt"></i> Hashrate</th>
+                  <th><i class="fas fa-tachometer-alt"></i> Hashrate (1h)</th>
+                  <th><i class="fas fa-cloud"></i> Total Hashes</th>
+                  <th><i class="fas fa-cubes"></i> Block Found</th>
+                  <th class="text-end"><i class="fas fa-swimming-pool"></i> Pool Type</th>
+                </tr>
+              </thead>
+              <tbody id="myWorkers"></tbody>
+            </table>
+          </div>
+
+          <ul class="nav nav-tabs mb-3 mt-3 fs-13" id="myTab">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="payments-tab" data-bs-toggle="tab" data-bs-target="#payments-tab-pane" type="button" role="tab" aria-controls="payments-tab-pane" aria-selected="true">Payments</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="rewards-tab" data-bs-toggle="tab" data-bs-target="#rewards-tab-pane" type="button" role="tab" aria-controls="rewards-tab-pane" aria-selected="false">Rewards</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-tab-pane" type="button" role="tab" aria-controls="settings-tab-pane" aria-selected="false">Settings</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade active show" id="payments-tab-pane" role="tabpanel" aria-labelledby="payments-tab" tabindex="0">
+              <div class="table-responsive mt-0 mt-md-3">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><i class="fas fa-clock"></i> Time</th>
+                      <th><i class="fas fa-hashtag"></i> Hash</th>
+                      <th><i class="fas fa-coins"></i> Amount</th>
+                      <th><i class="fas fa-blender"></i> Mixin</th>
+                    </tr>
+                  </thead>
+                  <tbody id="myPayments"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="rewards-tab-pane" role="tabpanel" aria-labelledby="rewards-tab" tabindex="1">
+              <div class="table-responsive mt-0 mt-md-4">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><i class="fas fa-cubes"></i> Height</th>
+                      <th><i class="fas fa-medal"></i> Rewarded</th>
+                      <th><i class="fas fa-cloud"></i> Total Hashes</th>
+                      <th><i class="fas fa-percentage"></i> Round Shares</th>
+                    </tr>
+                  </thead>
+                  <tbody id="myRewards"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="settings-tab-pane" role="tabpanel" aria-labelledby="settings-tab" tabindex="2">
+              <h4>Minimum Payment</h4>
+
+              <div class="fs-13 mt-3">
+                Miner IP Address:
+                <input type="text" class="form-control mb-3" id="setIPMiner" placeholder="An IP address of your miners">
+                
+                Minimum Payout:
+                <input type="text" class="form-control" id="setMinPayment" placeholder="Minimum Payout">
+
+                <button class="btn btn-theme mt-3" onclick="setMinPayout()">Set</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Made with <span class="cRed">❤</span> by The Lunify Team</span>
+      <span>Powered by <a href="https://github.com/LunifyProject/lunify-pool" target="_blank"><i class="fab fa-github"></i> lunify-pool</a> v1.0.0 open sourced under <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GPL</a></span>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/moment.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/doms.js"></script>
+  <script src="/js/utils.js"></script>
+
+  <script src="/js/index.js"></script>
+  
+  <script src="/js/core.js"></script>
+</body>
+</html>

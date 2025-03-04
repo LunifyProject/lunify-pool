@@ -1,0 +1,12 @@
+node_modules/
+.idea/
+config.json
+logs/
+*.log
+package-lock.json
+vendor
+._*
+composer.lock
+/config
+
+testnet/

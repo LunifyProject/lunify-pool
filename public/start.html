@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lunify - Mining Pool</title>
+
+  <link href="/img/logo.png" rel="shortcut icon" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.3.0/apexcharts.min.css" integrity="sha512-P/8zp3yWsYKLYgykcnVdWono7iWa9VXcoNLFnUhC82oBjt/6z5BIHXTQsMKBgYJjp6K+JAkt4yrID1cxfoUq+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-4 pe-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo_with_text.svg">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="more">
+    <div class="container">
+      
+      <div class="mt-80 buttonPoolHeader">
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/'"><i class="fas fa-home"></i> Home</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/start'"><i class="fas fa-rocket"></i> Start</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/blocks'"><i class="fas fa-cubes"></i> Blocks</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/payments'"><i class="fas fa-receipt"></i> Payments</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/miners'"><i class="fas fa-medal"></i> Top 25 Miners</button>
+          <button class="btn btn-theme" onclick="window.open(config.discord_url)"><i class="fab fa-discord"></i> Discord</button>
+        </div>
+      </div>
+
+      <div class="row mt-50">
+        <div class="col-12 col-md-7">
+          <h5 class="mb-4"><i class="fas fa-ethernet"></i> Connection Details</h5>
+          <div class="transparantCard fs-13">
+            <span class="cTheme">Mining Pool Address:</span><br>
+            <span id="miningPoolAddress">-</span><br><br>
+
+            <span class="cTheme">Algorithm:</span><br>
+            <span id="miningAlgorithm">-</span><br>
+          </div>
+
+          <h5 class="mb-4 mt-5"><i class="fas fa-ethernet"></i> Mining Ports</h5>
+          <div class="transparantCard fs-13">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th><i class="fas fa-ethernet"></i> Port</th>
+                  <th><i class="fas fa-square-root-alt"></i> Difficulty</th>
+                  <th><i class="fas fa-file-alt"></i> Description</th>
+                  <th><i class="fas fa-swimming-pool"></i> Type</th>
+                </thead>
+                <tbody id="miningPorts"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5 mt-5 mt-md-0">
+          <h5 class="mb-4"><i class="fas fa-user"></i> Username</h5>
+          <div class="transparantCard fs-13">
+            <div class="mb-2">
+              <i class="fas fa-wallet"></i>&nbsp;&nbsp;<span class="cTheme">Your wallet address:</span> <span class="tdUnderline">address</span><br>
+            </div>
+            
+            <div class="mb-2">
+              <i class="fas fa-receipt"></i>&nbsp;&nbsp;<span class="cTheme">With PaymentID:</span> <span class="tdUnderline">address</span> . <span class="tdUnderline">paymentID</span><br>
+            </div>
+
+            <div class="mb-2">
+              <i class="fas fa-square-root-alt"></i>&nbsp;&nbsp;<span class="cTheme">Difficulty Locking:</span> <span class="tdUnderline">address</span> + <span class="tdUnderline">diff</span><br>
+            </div>
+            
+            <div class="mb-2">
+              <i class="fas fa-wrench"></i>&nbsp;&nbsp;<span class="cTheme">Multiple Options:</span> <span class="tdUnderline">address</span> . <span class="tdUnderline">paymentID</span> + <span class="tdUnderline">diff</span><br>
+            </div>
+          </div>
+
+          <h5 class="mb-4 mt-5"><i class="fas fa-key"></i> Password</h5>
+          <div class="transparantCard fs-13">
+            <div class="mb-2">
+              <i class="fas fa-signature"></i>&nbsp;&nbsp;<span class="cTheme">This is your worker name</span><br>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mt-5">
+          <h5 class="mb-4"><i class="fas fa-desktop"></i> Mining Applications</h5>
+          <div class="transparantCard fs-13">
+            <div class="row">
+              <div class="col-12">
+                <select class="form-control" id="miningPortsList"></select>
+              </div>
+              <div class="col-12 col-md-6 mt-3">
+                <input type="text" class="form-control" placeholder="Wallet Address" id="confWalletAddressInput">
+              </div>
+              <div class="col-12 col-md-6 mt-3">
+                <input type="text" class="form-control" placeholder="Payment ID" id="confPaymentIDInput">
+              </div>
+              <div class="col-12 col-md-6 mt-3 mb-0 mb-md-3">
+                <input type="text" class="form-control" placeholder="Worker Name" id="confWorkerNameInput">
+              </div>
+              <div class="col-12 col-md-6 mt-3 mb-3">
+                <input type="text" class="form-control" placeholder="Fixed Difficulty" id="confFixedDifficultyInput">
+              </div>
+              <div class="col-12 mb-5">
+                <button class="btn btn-theme fs-13 w-100" onclick="showInfos(true)">Generate Config</button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <th><i class="fas fa-signature"></i> Name</th>
+                  <th><i class="fas fa-microchip"></i> Architechture</th>
+                  <th><i class="fas fa-star"></i> Features</th>
+                  <th><i class="fas fa-download"></i> Download</th>
+                  <th><i class="fas fa-cog"></i> Configuration</th>
+                </thead>
+                <tbody id="miningApplications">
+                  <tr>
+                    <th style="font-weight:600">LFIRig</th>
+                    <th>CPU (<i class="fab fa-windows cWindows"></i> <i class="fab fa-linux"></i> <i class="fab fa-apple cApple"></i>)</th>
+                    <th>Powerful CPU Mining App</th>
+                    <th><button class="btn btn-theme fs-13" onclick="download('cli')">Download</button></th>
+                    <th><button class="btn btn-secondary fs-13" onclick="showInfos()">See more</button></th>
+                  </tr>
+                  <tr id="LFIRig" class="d-none">
+                    <th colspan="5">
+                      <pre style="padding: 10px 12px; background-color: #1b1c1e; border: 1px solid #404144;"><code style="padding: 0; background-color:transparent;">"pools": [
+  {
+    "url": "<span id="confPoolAddress">pool.lunify.xyz</span>:<span id="confPort">3333</span>",
+    "user": "<span id="confWalletAddress">YOUR_WALLET_ADDRESS</span>",
+    "pass": "<span id="confPassword">YOUR_WORKER_NAME</span>",
+    "keepalive": true,
+    "nicehash": false,
+    "algo": "panthera"
+  }
+],</code></pre>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th style="font-weight:600">Lunify Mobile Miner</th>
+                    <th>CPU (<i class="fab fa-android cAndroid"></i>)</th>
+                    <th>High performance Panthera CPU miner for Android</th>
+                    <th><button class="btn btn-theme fs-13" onclick="download('mobile')">Download</button></th>
+                    <th></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <span>Made with <span class="cRed">❤</span> by The Lunify Team</span>
+      <span>Powered by <a href="https://github.com/LunifyProject/lunify-pool" target="_blank"><i class="fab fa-github"></i> lunify-pool</a> v1.0.0 open sourced under <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GPL</a></span>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/moment.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/doms.js"></script>
+  <script src="/js/utils.js"></script>
+
+  <script src="/js/start.js"></script>
+  
+  <script src="/js/core.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Check for .html only if it's not already being rewritten
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]

@@ -1,0 +1,56 @@
+{
+    "name": "lunify-pool",
+    "version": "1.5.0",
+    "license": "GPL-2.0",
+    "author": "@LunifyDev",
+    "main": "init.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LunifyProject/lunify-pool.git"
+    },
+    "dependencies": {
+        "args-parser": "^1.3.0",
+        "async": "^3.2.4",
+        "base58-native": "^0.1.4",
+        "bignum": "^0.13.1",
+        "cli-color": "^2.0.3",
+        "cryptoforknote-util": "git+https://github.com/LunifyProject/node-cryptoforknote-util.git",
+        "cryptonight-hashing": "git+https://github.com/LunifyProject/lunify-hashing.git",
+        "dateformat": "^4.6.2",
+        "fastify": "^3.11.0",
+        "fastify-compress": "^3.4.1",
+        "fastify-static": "^3.4.0",
+        "pm2": "^4.5.4",
+        "read-package-json": "^2.1.1",
+        "redis": "v3.1.2",
+        "semistandard": "^16.0.0"
+    },
+    "engines": {
+        "node": ">=14.0.0 <16.0.0"
+    },
+    "devDependencies": {
+        "ava": "^3.10.1",
+        "eslint": "^7.13.0",
+        "eslint-config-standard": "^16.0.2",
+        "eslint-plugin-html": "^6.1.1",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "nodemon": "^2.0.7",
+        "snazzy": "^9.0.0"
+    },
+    "scripts": {
+        "api": "node init.js --module=api",
+        "comms": "node init.js --module=comms",
+        "payments": "node init.js --module=payments",
+        "pool": "node init.js --module=pool",
+        "remote": "node init.js --module=remote",
+        "unlocker": "node init.js --module=unlocker",
+        "web": "node init.js --module=web --port=80",
+        "pooldev": "npx nodemon init.js -a '--module=pool' --watch lib --watch config",
+        "test": "npx ava",
+        "lint": "npx semistandard lib/* --verbose | npx snazzy",
+        "lint_md": "npx semistandard --plugin markdown '**/*.md' --verbose | npx snazzy",
+        "lint_html": "npx  semistandard --plugin html '**/*.html' --verbose | npx snazzy"
+    }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Lunify - Mining Pool</title>
+
+  <link href="/img/logo.png" rel="shortcut icon" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/4.3.0/apexcharts.min.css" integrity="sha512-P/8zp3yWsYKLYgykcnVdWono7iWa9VXcoNLFnUhC82oBjt/6z5BIHXTQsMKBgYJjp6K+JAkt4yrID1cxfoUq+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ps-4 pe-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/img/logo_with_text.svg">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="more">
+    <div class="container">
+      
+      <div class="mt-80 buttonPoolHeader">
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/'"><i class="fas fa-home"></i> Home</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/start'"><i class="fas fa-rocket"></i> Start</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/blocks'"><i class="fas fa-cubes"></i> Blocks</button>
+          <button class="btn btn-theme" onclick="window.location.href = '/payments'"><i class="fas fa-receipt"></i> Payments</button>
+        </div>
+        <div class="buttonPoolSeperator">
+          <button class="btn btn-theme" onclick="window.location.href = '/miners'"><i class="fas fa-medal"></i> Top 25 Miners</button>
+          <button class="btn btn-theme" onclick="window.open(config.discord_url)"><i class="fab fa-discord"></i> Discord</button>
+        </div>
+      </div>
+
+      <div class="row mb-5 mt-50">
+        <div class="col-12">
+          <h5 class="mb-4"><i class="fas fa-users"></i> Top 25 miners</h5>
+          <div class="transparantCard">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th><i class="fas fa-hashtag"></i></th>
+                    <th><i class="fas fa-wallet"></i> Miner</th>
+                    <th><i class="fas fa-tachometer-alt"></i> Hashrate</th>
+                    <th><i class="fas fa-cloud"></i> Hashes</th>
+                    <th><i class="fas fa-clock"></i> Last Share Submitted</th>
+                    <th><i class="fas fa-cubes"></i> Blocks Found</th>
+                  </tr>
+                </thead>
+                <tbody style="font-family: monospace;" id="topMiners"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <span>Made with <span class="cRed">❤</span> by The Lunify Team</span>
+      <span>Powered by <a href="https://github.com/LunifyProject/lunify-pool" target="_blank"><i class="fab fa-github"></i> lunify-pool</a> v1.0.0 open sourced under <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank">GPL</a></span>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/moment.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/doms.js"></script>
+  <script src="/js/utils.js"></script>
+
+  <script src="/js/miners.js"></script>
+  
+  <script src="/js/core.js"></script>
+</body>
+</html>
