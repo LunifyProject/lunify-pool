@@ -6,7 +6,7 @@ async function statsParse() {
   // Network
   doms.statNetHashrate.innerHTML = readableHashrate(stats.pool.stats.difficulty / 60) + "/s";
   doms.statNetLastBlock.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound)).fromNow();
-  doms.statNetLastBlockTime.innerHTML = `N/A`;
+  doms.statNetLastBlockTime.innerHTML = `${convertTimestamp(stats.pool.stats.lastBlockFound)}`;
   doms.statNetLastReward.innerHTML = `${stats.pool.stats.lastblock_lastReward / (10 ** decimals)} ${ticker}`;
   doms.statNetLastHash.innerHTML = `<a href="${config.block_url}/${stats.pool.stats.lastblock_hash}" target="_blank">${stats.pool.stats.lastblock_hash.slice(0, 5)}...${stats.pool.stats.lastblock_hash.slice(-5)}</a>`;
   doms.statNetDifficulty.innerHTML = `${parseInt(stats.pool.stats.difficulty).toLocaleString('en-us')}`;
