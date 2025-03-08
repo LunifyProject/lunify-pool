@@ -7,7 +7,6 @@ function paymentParse() {
   doms.payPaymentInterval.innerHTML = `${formatTime(stats.config.paymentsInterval)}`;
 
   let payments = "";
-  console.log(stats);
   for(let i = 0; i < stats.pool.payments.length; i++) {
     if (i % 2 === 0) {
       try {

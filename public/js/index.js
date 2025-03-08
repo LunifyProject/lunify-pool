@@ -400,7 +400,6 @@ async function checkAddress(address) {
             <th>${(currentBlock.percent * 100).toFixed(4)}%</th>
             <th>${parseInt((isNaN(currentBlock.shares) ? 0 : currentBlock.shares)).toLocaleString('en-us')}</th>
           </tr>`;
-          console.log(currentBlock.shares);
         }
       }
     }
