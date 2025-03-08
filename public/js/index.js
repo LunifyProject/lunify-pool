@@ -120,8 +120,12 @@ async function createCharts() {
   };
 
   if(getCookie("wallet_address")) {
-    graphData['hashrate_user'] = getGraphData(chartData.hashrate);
-    graphData['payments_user'] = getGraphData(chartData.payments);
+    let walletData = await api(`/stats_address?address=${getCookie("wallet_address")}`);
+
+    if(!walletData.error) {
+      graphData['hashrate_user'] = getGraphData(chartData.hashrate);
+      graphData['payments_user'] = getGraphData(chartData.payments);
+    }
   }
 
   for (var graphType in graphData) {
@@ -273,7 +277,7 @@ async function checkAddress(address) {
 
   let walletData = await api(`/stats_address?address=${wallet}`);
 
-  if(!walletData.status) {
+  if(!walletData.error) {
     // Scoresheet data
     let scoresheetDataGet = await api(`/miners_scoresheet?address=${wallet}`);
     let scoresheetData = [];
@@ -299,7 +303,7 @@ async function checkAddress(address) {
       doms.miningAddress.value = address;
     }
 
-    doms.myHashrate.innerHTML = readableHashrate(walletData.stats.hashrate) + "/s";
+    doms.myHashrate.innerHTML = readableHashrate(walletData.stats.hashrate || 0) + "/s";
     doms.myLastShare.innerHTML = moment(parseInt(walletData.stats.lastShare) * 1000).fromNow();
     doms.myTotalHashes.innerHTML = parseInt(walletData.stats.hashes).toLocaleString('en-us');
     
@@ -320,7 +324,7 @@ async function checkAddress(address) {
     doms.myPayoutBalanceBTC.innerHTML = payoutBalanceBTC;
     
     doms.myMinimumPayout.innerHTML = parseInt(walletData.stats.minPayoutLevel) / (10**decimals);
-    doms.myBlockFound.innerHTML = walletData.stats.blocksFound.toLocaleString('en-us');
+    doms.myBlockFound.innerHTML = (walletData.stats.blocksFound || 0).toLocaleString('en-us');
 
     let myWorkers = "";
     let onlineWorkers = 0;
