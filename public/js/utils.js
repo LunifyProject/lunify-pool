@@ -136,11 +136,6 @@ function dailyMiningProfit(hashrate, difficultyTarget, difficulty, alreadyMining
   return dailyProfit;
 }
 
-// TODO
-function getBlockReward(height) {
-  return 8;
-}
-
 function formatLuck(difficulty, shares) {
   var percent = Math.round(shares / difficulty * 100);
   if (!percent) {
@@ -167,4 +162,19 @@ function formatTime(seconds) {
   } else {
     return seconds + ' seconds';
   }
+}
+
+function convertTimestamp(timestamp) {
+  const date = new Date(parseInt(timestamp));
+  const options = {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  };
+  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+  return formattedDate.replace(',', '').replace('/', '-').replace('/', '-');
 }
