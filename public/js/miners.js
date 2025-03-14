@@ -10,11 +10,12 @@ async function minersParse() {
   }
 
   // Sort array
-  topMiners.sort((a, b) => b.hashrate - a.hashrate);
+  topMiners.sort((a, b) => b.hashes - a.hashes);
 
   let miners = "";
   for(let i = 0; i < topMiners.length; i++) {
     if(i < 25) {
+      console.log(topMiners[i]);
       miners += `<tr>
         <th>${i+1}</th>
         <th>${topMiners[i].miner}</th>
