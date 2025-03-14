@@ -6,7 +6,7 @@ async function statsParse() {
   // Network
   doms.statNetHashrate.innerHTML = readableHashrate(stats.pool.stats.difficulty / 60) + "/s";
   doms.statNetLastBlock.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound)).fromNow();
-  doms.statNetLastBlockTime.innerHTML = `${convertTimestamp(stats.pool.stats.lastBlockFound)}`;
+  doms.statNetLastBlockTime.innerHTML = `${convertTimestamp(stats.pool.stats.lastBlockFound || 0)}`;
   doms.statNetLastReward.innerHTML = `${stats.pool.stats.lastblock_lastReward / (10 ** decimals)} ${ticker}`;
   doms.statNetLastHash.innerHTML = `<a href="${config.block_url}/${stats.pool.stats.lastblock_hash}" target="_blank">${stats.pool.stats.lastblock_hash.slice(0, 5)}...${stats.pool.stats.lastblock_hash.slice(-5)}</a>`;
   doms.statNetDifficulty.innerHTML = `${parseInt(stats.pool.stats.difficulty).toLocaleString('en-us')}`;
@@ -14,9 +14,9 @@ async function statsParse() {
 
   // Pool Mining
   doms.statsPoolHashrate.innerHTML = readableHashrate(stats.pool.hashrate) + "/s";
-  doms.statsPoolLastBlockFound.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound_props)).fromNow();
+  doms.statsPoolLastBlockFound.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound_props || 0)).fromNow();
   doms.statsPoolFoundEvery.innerHTML = readableTime(stats.network.difficulty / stats.pool.hashrate);
-  doms.statsPoolBlocksFound.innerHTML = parseInt(stats.pool.stats.blocksFound).toLocaleString('en-us');
+  doms.statsPoolBlocksFound.innerHTML = parseInt(stats.pool.stats.blocksFound || 0).toLocaleString('en-us');
   doms.statsPoolMiners.innerHTML = `${stats.pool.miners} (${stats.pool.workers})`;
   doms.statsPoolEffort.innerHTML = (stats.pool.stats.roundShares / stats.network.difficulty * 100).toFixed(1) + '%';
   doms.statsPoolFee.innerHTML = stats.config.fees + '%';
@@ -25,9 +25,9 @@ async function statsParse() {
 
   // Solo Mining
   doms.statsSoloHashrate.innerHTML = readableHashrate(stats.pool.hashrateSolo) + "/s";
-  doms.statsSoloLastBlockFound.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound_solo)).fromNow();
+  doms.statsSoloLastBlockFound.innerHTML = moment(parseInt(stats.pool.stats.lastBlockFound_solo || 0)).fromNow();
   doms.statsSoloFoundEvery.innerHTML = readableTime(stats.network.difficulty / stats.pool.hashrateSolo);
-  doms.statsSoloBlocksFound.innerHTML = parseInt(stats.pool.stats.blocksFound_solo).toLocaleString('en-us');
+  doms.statsSoloBlocksFound.innerHTML = parseInt(stats.pool.stats.blocksFound_solo || 0).toLocaleString('en-us');
   doms.statsSoloMiners.innerHTML = `${stats.pool.minersSolo} (${stats.pool.workersSolo})`;
   doms.statsSoloFee.innerHTML = stats.config.fees + '%';
   doms.statsSoloMinPayment.innerHTML = `${stats.config.minPaymentThreshold / (10 ** decimals)} ${ticker}`;
