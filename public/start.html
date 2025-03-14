@@ -117,7 +117,7 @@
                 <input type="text" class="form-control" placeholder="Fixed Difficulty" id="confFixedDifficultyInput">
               </div>
               <div class="col-12 mb-5">
-                <button class="btn btn-theme fs-13 w-100" onclick="showInfos(true)">Generate Config</button>
+                <button class="btn btn-theme fs-13 w-100" onclick="showInfos('all', true)">Generate Config</button>
               </div>
             </div>
 
@@ -136,7 +136,7 @@
                     <th>CPU (<i class="fab fa-windows cWindows"></i> <i class="fab fa-linux"></i> <i class="fab fa-apple cApple"></i>)</th>
                     <th>Powerful CPU Mining App</th>
                     <th><button class="btn btn-theme fs-13" onclick="download('cli')">Download</button></th>
-                    <th><button class="btn btn-secondary fs-13" onclick="showInfos()">See more</button></th>
+                    <th><button class="btn btn-secondary fs-13" onclick="showInfos('LFIRig')">See more</button></th>
                   </tr>
                   <tr id="LFIRig" class="d-none">
                     <th colspan="5">
@@ -150,6 +150,18 @@
     "algo": "panthera"
   }
 ],</code></pre>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th style="font-weight:600">SRBMiner</th>
+                    <th>CPU (<i class="fab fa-windows cWindows"></i> <i class="fab fa-linux"></i> <i class="fab fa-apple cApple"></i>)</th>
+                    <th>CPU & GPU cryptocurrency miner</th>
+                    <th><button class="btn btn-theme fs-13" onclick="download('cli-srb')">Download</button></th>
+                    <th><button class="btn btn-secondary fs-13" onclick="showInfos('SRBMiner')">See more</button></th>
+                  </tr>
+                  <tr id="SRBMiner" class="d-none">
+                    <th colspan="5">
+                      <pre style="padding: 10px 12px; background-color: #1b1c1e; border: 1px solid #404144;"><code style="padding: 0; background-color:transparent;">SRBMiner-MULTI --algorithm panthera --pool <span id="confPoolAddress2">pool.lunify.xyz</span>:<span id="confPort2">3333</span> --wallet <span id="confWalletAddress2">YOUR_WALLET_ADDRESS</span> --password <span id="confPassword2">YOUR_WORKER_NAME</span></code></pre>
                     </th>
                   </tr>
                   <tr>

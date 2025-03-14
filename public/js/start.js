@@ -24,15 +24,17 @@ function informationParse() {
   doms.miningPortsList.innerHTML = miningPortsList;
 }
 
-function showInfos(generate) {
+function showInfos(dom, generate) {
   // If generate
   if(generate) {
     doms.LFIRig.classList.remove('d-none');
+    doms.SRBMiner.classList.remove('d-none');
 
     doms.confPoolAddress.innerHTML = `${config.mining_address}`;
 
     if(!(doms.confWalletAddressInput.value == "")) {
       doms.confWalletAddress.innerHTML = `${doms.confWalletAddressInput.value}`;
+      doms.confWalletAddress2.innerHTML = `${doms.confWalletAddressInput.value}`;
     }
     
     doms.confPort.innerHTML = `${doms.miningPortsList.value}`;
@@ -40,26 +42,30 @@ function showInfos(generate) {
     // Worker Name
     if(!(doms.confWorkerNameInput.value == "")) {
       doms.confPassword.innerHTML = `${doms.confWorkerNameInput.value}`;
+      doms.confPassword2.innerHTML = `${doms.confWorkerNameInput.value}`;
 
       // Payment ID
       if(!(doms.confPaymentIDInput.value == "")) {
         doms.confPassword.innerHTML += `.${doms.confPaymentIDInput.value}`;
+        doms.confPassword2.innerHTML += `.${doms.confPaymentIDInput.value}`;
       }
 
       // Fixed Difficulty
       if(!(doms.confFixedDifficultyInput.value == "")) {
         doms.confPassword.innerHTML += `+${doms.confFixedDifficultyInput.value}`;
+        doms.confPassword2.innerHTML += `+${doms.confFixedDifficultyInput.value}`;
       }
     }
     return;
   }
   
+  let selectedMining = document.getElementById(dom);
   // If show info
-  if(doms.LFIRig.classList.value.includes('d-none')) {
-    doms.LFIRig.classList.remove('d-none');
+  if(selectedMining.classList.value.includes('d-none')) {
+    selectedMining.classList.remove('d-none');
     return;
   } else {
-    doms.LFIRig.classList.add('d-none');
+    selectedMining.classList.add('d-none');
     return;
   }
 }
@@ -67,6 +73,8 @@ function showInfos(generate) {
 function download(type) {
   if(type == "cli") {
     window.open('https://github.com/LunifyProject/LFIrig/releases/latest');
+  } else if(type == "cli-srb") {
+    window.open('https://github.com/doktor83/SRBMiner-Multi/releases/latest');
   } else if(type == "mobile") {
     window.open('https://github.com/LunifyProject/LunifyVault/releases/latest');
   }

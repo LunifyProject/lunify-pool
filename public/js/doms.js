@@ -81,6 +81,7 @@ let doms = {
   miningPorts: document.getElementById('miningPorts'),
   miningPortsList: document.getElementById('miningPortsList'),
   LFIRig: document.getElementById('LFIRig'),
+  SRBMiner: document.getElementById('SRBMiner'),
 
   confWalletAddressInput: document.getElementById('confWalletAddressInput'),
   confPaymentIDInput: document.getElementById('confPaymentIDInput'),
@@ -90,7 +91,9 @@ let doms = {
   confPoolAddress: document.getElementById('confPoolAddress'),
   confPort: document.getElementById('confPort'),
   confWalletAddress: document.getElementById('confWalletAddress'),
+  confWalletAddress2: document.getElementById('confWalletAddress2'),
   confPassword: document.getElementById('confPassword'),
+  confPassword2: document.getElementById('confPassword2'),
 
   // Blocks
   minedBlocks: document.getElementById('minedBlocks'),
