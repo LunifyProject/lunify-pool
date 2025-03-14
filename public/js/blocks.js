@@ -13,9 +13,9 @@ function blocksParse() {
 
   let blocks = "";
   for(let i = 0; i < stats.pool.blocks.length; i++) {
-    if(i < 70) {
+    if(i < 100) {
       let block = stats.pool.blocks[i].split(':');
-      let maturity = stats.config.depth - (stats.network.height - (parseInt(block[0])-1));
+      let maturity = stats.network.height - (parseInt(block[0])-1);
       
       blocks += `<tr>
         <th>${parseInt(block[0]).toLocaleString('en-us')}</th>
@@ -24,7 +24,7 @@ function blocksParse() {
         <th>${parseInt(block[3]).toLocaleString('en-us')}</th>
         <th><code><a href="${config.block_url}/${block[1]}" target="_blank">${block[1].slice(0, 5)}...${block[1].slice(-5)}</code></th>
         <th>${formatLuck(parseInt(block[3]), parseInt(block[4]))}</th>
-        <th class="text-center">${maturity > 0 ? '<i class="fas fa-spinner spinner"></i>' : '<i class="fas fa-unlock-alt"></i>'}</th>
+        <th class="text-center">${maturity < stats.config.depth ? '<i class="fas fa-spinner spinner"></i>' : '<i class="fas fa-unlock-alt"></i>'}</th>
         <th><code>${block[7]}</code></th>
         <th>${parseInt(block[4]).toLocaleString('en-us')}</th>
         <th>${(block[8] == "props" ? 'Pool' : 'Solo')}</th>
